@@ -1,5 +1,9 @@
 # Real-time Ride-Share Tracking
 
+## Hosted
+
+This web is hosted on [https://real-time-ride-share-tracking-web.netlify.app](https://real-time-ride-share-tracking-web.netlify.app)
+
 ## Overview
 
 This project is a web application for tracking a driver's route in real-time, specifically designed for a transportation agency in Kigali. The application utilizes the Google Maps API to display the route and calculate the estimated time of arrival (ETA) for each stop along the way.
@@ -20,12 +24,12 @@ This project is a web application for tracking a driver's route in real-time, sp
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/ride-share-tracking.git
+   git clone https://github.com/ProgrammerDATCH/Real-time-Ride-Share-Tracking.git
    ```
 2. Install dependencies:
 
    ```bash
-   npm install
+   npm run dev
    ```
 
 3. Rename `.env.example` to `.env`
@@ -40,7 +44,7 @@ VITE_GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY';
   npm start
 ```
 
-5. Open your browser and navigate to `http://localhost:3000` to view the application.
+5. Open your browser and navigate to `http://localhost:5173/` to view the application.
 
 ## Project Structure
 
@@ -67,3 +71,11 @@ The application's UI closely matches the provided Figma design screenshot, with 
 ## Author
 
 - TUYISHIME David
+
+## Screenshots
+
+![Satelite View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/satelite.png)
+
+![Map View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/routes.png)
+
+![Street View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/real-time.png)
