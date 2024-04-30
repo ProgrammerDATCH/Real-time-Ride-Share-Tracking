@@ -73,9 +73,14 @@ The application's UI closely matches the provided Figma design screenshot, with 
 - TUYISHIME David
 
 ## Screenshots
-
-![Satelite View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/satelite.png)
-
-![Map View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/routes.png)
-
-![Street View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/real-time.png)
+<div style="display: flex;">
+  <div style="width: 30%;">
+  ![Satelite View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/satelite.png)
+  </div>
+  <div style="width: 30%;">
+  ![Map View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/routes.png)
+  </div>
+  <div style="width: 30%;">
+  ![Street View](https://raw.githubusercontent.com/ProgrammerDATCH/images/main/real-time-ride-share/real-time.png)
+  </div>
+</div>

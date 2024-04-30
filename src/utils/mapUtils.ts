@@ -1,11 +1,5 @@
 import { Coordinate } from "../interfaces";
 
-interface Stop {
-  name: string;
-  location: Coordinate;
-}
-
-
 const calculateETA = async (
   from: Coordinate,
   to: Coordinate,
@@ -38,42 +32,6 @@ const calculateETA = async (
     console.error('Error fetching directions:', error);
   }
 };
-
-
-
-const getNearestStop = (currentLocation: Coordinate, stops: Stop[]): Coordinate | null => {
-  let nearestStop: Stop | null = null;
-  let nearestDistance: number = Number.MAX_SAFE_INTEGER;
-  stops.forEach(stop => {
-    const distance = calculateDistance(currentLocation, stop.location);
-    if (distance < nearestDistance) {
-      nearestDistance = distance;
-      nearestStop = stop;
-    }
-  });
-
-  return nearestStop ? (nearestStop as Stop).location : null;
-};
-
-const calculateDistance = (coord1: Coordinate, coord2: Coordinate): number => {
-  const earthRadius = 6371; // Radius of the earth in km
-  const latDiff = deg2rad(coord2.lat - coord1.lng);
-  const lngDiff = deg2rad(coord2.lng - coord1.lng);
-  const a =
-    Math.sin(latDiff / 2) * Math.sin(latDiff / 2) +
-    Math.cos(deg2rad(coord1.lat)) *
-      Math.cos(deg2rad(coord2.lat)) *
-      Math.sin(lngDiff / 2) *
-      Math.sin(lngDiff / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = earthRadius * c; // Distance in km
-  return distance;
-};
-
-const deg2rad = (deg: number): number => {
-  return deg * (Math.PI / 180);
-};
-
 
 
 export {
