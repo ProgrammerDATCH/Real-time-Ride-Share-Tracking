@@ -11,6 +11,36 @@ interface Route {
 
 const route: Route = {
     startingPoint: {
+        lat: -1.9655435668894352,
+        lng: 30.06288938924075,
+        name: "Biryogo"
+    },
+    intermediateStops: [
+        {
+            lat: -1.9630811347401276,
+            lng: 30.065337864912347,
+            name: "A"
+        },
+        {
+            lat: -1.9588135586027335,
+            lng: 30.064715592507216,
+            name: "B"
+        },
+        {
+            lat: -1.9483426858773065,
+            lng: 30.06222817957015,
+            name: "C"
+        }
+    ],
+    endingPoint: {
+        lat: -1.9430453578848659,
+        lng: 30.063975653841744,
+        name: 'St Famille'
+    }
+};
+
+const route2: Route = {
+    startingPoint: {
         lat: -1.939826787816454,
         lng: 30.0445426438232,
         name: "Nyabugogo"
