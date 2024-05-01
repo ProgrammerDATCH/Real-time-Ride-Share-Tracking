@@ -5,7 +5,7 @@ import {
   Marker,
   DirectionsRenderer
 } from '@react-google-maps/api';
-import route from '../constants/coordinates';
+import {route} from '../constants/coordinates';
 import { bus_in_map } from './assets';
 import { calculateETA } from '../utils/mapUtils';
 

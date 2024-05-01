@@ -30,7 +30,7 @@ const route: Route = {
             lat: -1.9483426858773065,
             lng: 30.06222817957015,
             name: "C"
-        }
+        },
     ],
     endingPoint: {
         lat: -1.9430453578848659,
@@ -79,4 +79,4 @@ const route2: Route = {
     }
 };
 
-export default route;
+export {route, route2};

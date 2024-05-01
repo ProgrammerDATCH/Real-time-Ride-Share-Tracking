@@ -2,7 +2,7 @@ import MapComponent from './MapComponent'
 import { useState } from 'react'
 import { Leg } from '../interfaces';
 import { formatDuration } from '../utils/functionUtils';
-import route from '../constants/coordinates';
+import {route} from '../constants/coordinates';
 import { FiBell, FiHeart, FiInfo, FiMenu } from 'react-icons/fi';
 export const Moving = () => {
     const [routeInfo, setRouteInfo] = useState<Leg | null>(null);
