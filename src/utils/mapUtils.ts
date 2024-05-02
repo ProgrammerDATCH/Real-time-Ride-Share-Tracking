@@ -4,8 +4,6 @@ const calculateETA = async (
   from: Coordinate,
   to: Coordinate,
   intermediateStops: Coordinate[],
-  setRouteFunction: Function,
-  setRouteInfo: Function
 ) => {
   const directionsService = new google.maps.DirectionsService();
   const waypoints = intermediateStops.map((stop) => ({
@@ -20,20 +18,75 @@ const calculateETA = async (
   };
   try {
     const response = await directionsService.route(request);
-    if (response && response.routes && response.routes.length > 0) {
-      const route = response.routes[0];
-      if (route && route.legs && route.legs.length > 0) {
-        const leg = route.legs[0];
-        setRouteInfo(leg);
-      }
-    }
-    setRouteFunction(response);
+    return response;
   } catch (error) {
     console.error('Error fetching directions:', error);
+    return null;
   }
 };
 
 
-export {
-    calculateETA
+const isUserWithinRoute = (userLocation: Coordinate, route: any) => {
+
+  const routeBounds = new google.maps.LatLngBounds();
+  routeBounds.extend(new google.maps.LatLng(route.startingPoint.lat, route.startingPoint.lng));
+  route.intermediateStops.forEach((stop: any) => {
+    routeBounds.extend(new google.maps.LatLng(stop.lat, stop.lng));
+  });
+  routeBounds.extend(new google.maps.LatLng(route.endingPoint.lat, route.endingPoint.lng));
+
+  const userLatLng = new google.maps.LatLng(userLocation.lat, userLocation.lng);
+  return routeBounds.contains(userLatLng);
 }
+
+
+const updateLeg = (
+  directionsResponse: google.maps.DirectionsResult | null,
+  currentLegIndex: number,
+  currentLocation: { lat: number; lng: number },
+  setCurrentLegIndex: (index: number) => void
+) => {
+  if (!directionsResponse || !directionsResponse.routes || directionsResponse.routes.length === 0) {
+    return;
+  }
+
+  const route = directionsResponse.routes[0];
+  if (!route.legs || route.legs.length === 0) {
+    return;
+  }
+
+  const leg = route.legs[currentLegIndex];
+  if (!leg.steps || leg.steps.length === 0) {
+    return;
+  }
+
+  // Determine current step based on user's location
+  const currentStepIndex = leg.steps.findIndex(step => {
+    const stepStartLocation = step.start_location;
+    const stepEndLocation = step.end_location;
+    return (
+      currentLocation.lat >= stepStartLocation.lat() &&
+      currentLocation.lat <= stepEndLocation.lat() &&
+      currentLocation.lng >= stepStartLocation.lng() &&
+      currentLocation.lng <= stepEndLocation.lng()
+    );
+  });
+
+  if (currentStepIndex !== -1) {
+    // Display instruction from the current step
+    console.log('Current Instruction:', leg.steps[currentStepIndex].instructions);
+  }
+
+  // Shift to the next leg if the user has reached the end of the current leg
+  if (currentStepIndex === leg.steps.length - 1 && currentLegIndex < route.legs.length - 1) {
+    setCurrentLegIndex(currentLegIndex + 1);
+  }
+};
+
+
+
+export {
+  calculateETA,
+  isUserWithinRoute,
+  updateLeg
+};

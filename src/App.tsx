@@ -2,7 +2,7 @@ import { Moving } from "./components/Moving"
 
 function App() {
   return (
-  <div className="bg-black w-full min-h-screen flex justify-center items-center flex-col">
+  <div className="bg-black w-full h-screen flex justify-center items-center flex-col">
      <Moving />
   </div>
   )

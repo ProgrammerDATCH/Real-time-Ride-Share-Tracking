@@ -3,43 +3,14 @@ interface Coordinate {
     lng: number;
     name: string;
 }
+
 interface Route {
     startingPoint: Coordinate;
     intermediateStops: Coordinate[];
     endingPoint: Coordinate;
 }
 
-const route: Route = {
-    startingPoint: {
-        lat: -1.9655435668894352,
-        lng: 30.06288938924075,
-        name: "Biryogo"
-    },
-    intermediateStops: [
-        {
-            lat: -1.9630811347401276,
-            lng: 30.065337864912347,
-            name: "A"
-        },
-        {
-            lat: -1.9588135586027335,
-            lng: 30.064715592507216,
-            name: "B"
-        },
-        {
-            lat: -1.9483426858773065,
-            lng: 30.06222817957015,
-            name: "C"
-        },
-    ],
-    endingPoint: {
-        lat: -1.9430453578848659,
-        lng: 30.063975653841744,
-        name: 'St Famille'
-    }
-};
-
-const route2: Route = {
+const routeBiryogo: Route = {
     startingPoint: {
         lat: -1.939826787816454,
         lng: 30.0445426438232,
@@ -79,4 +50,60 @@ const route2: Route = {
     }
 };
 
-export {route, route2};
+
+const routeDownTown: Route = {
+    startingPoint: {
+        lat: -1.9418493019067893,
+        lng: 30.06639763115787,
+        name: "Lab"
+    },
+    intermediateStops: [
+        {
+            lat: -1.9432316654315118,
+            lng: 30.065558719257407,
+            name: "A"
+        },
+        {
+            lat: -1.9431397056063882,
+            lng: 30.06541207396515,
+            name: "B"
+        },
+    ],
+    endingPoint: {
+        lat: -1.9430851044578419,
+        lng: 30.06534498134777,
+        name: 'Gate'
+    }
+};
+
+const route: Route = {
+    startingPoint: {
+        lat: -1.9655435668894352,
+        lng: 30.06288938924075,
+        name: "Biryogo"
+    },
+    intermediateStops: [
+        {
+            lat: -1.9630811347401276,
+            lng: 30.065337864912347,
+            name: "A"
+        },
+        {
+            lat: -1.9588135586027335,
+            lng: 30.064715592507216,
+            name: "B"
+        },
+        {
+            lat: -1.9483426858773065,
+            lng: 30.06222817957015,
+            name: "C"
+        },
+    ],
+    endingPoint: {
+        lat: -1.9430453578848659,
+        lng: 30.063975653841744,
+        name: 'St Famille'
+    }
+};
+
+export {route, routeBiryogo, routeDownTown};
