@@ -7,7 +7,7 @@ import { Coordinate } from '../interfaces';
 
 const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-const MapComponent = ({ setRouteInfo, setStatus }: { setRouteInfo: (routeInfo: google.maps.DirectionsLeg | null) => void, setStatus: any }) => {
+const MapComponent = ({ setRouteInfo, setStatus, setInstruction }: { setRouteInfo: (routeInfo: google.maps.DirectionsLeg | null) => void, setStatus: any, setInstruction: any }) => {
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number }>({
     lat: route.startingPoint.lat,
     lng: route.startingPoint.lng,
@@ -24,7 +24,7 @@ const MapComponent = ({ setRouteInfo, setStatus }: { setRouteInfo: (routeInfo: g
     }
     else {
       setStatus("Moving...")
-      updateLeg(directionsResponse, currentLegIndex, currentLocation, setCurrentLegIndex)
+      updateLeg(directionsResponse, currentLegIndex, currentLocation, setCurrentLegIndex, setInstruction)
     }
   }
 
@@ -55,7 +55,7 @@ const MapComponent = ({ setRouteInfo, setStatus }: { setRouteInfo: (routeInfo: g
     isLoaded && calculateETA(from, to, intermediateStops)
       .then((response) => {
         if (response && response.routes && response.routes.length > 0 && response.routes[0].legs && response.routes[0].legs.length > 0) {
-          setRouteInfo(response.routes[0].legs[0]);
+          setRouteInfo(response.routes[0].legs[currentLegIndex]);
           setDirectionsResponse(response);
         } else {
           console.error('Invalid response format for ETA calculation:', response);

@@ -44,7 +44,8 @@ const updateLeg = (
   directionsResponse: google.maps.DirectionsResult | null,
   currentLegIndex: number,
   currentLocation: { lat: number; lng: number },
-  setCurrentLegIndex: (index: number) => void
+  setCurrentLegIndex: (index: number) => void,
+  setInstruction: (instruction: string) => void
 ) => {
   if (!directionsResponse || !directionsResponse.routes || directionsResponse.routes.length === 0) {
     return;
@@ -74,7 +75,7 @@ const updateLeg = (
 
   if (currentStepIndex !== -1) {
     // Display instruction from the current step
-    console.log('Current Instruction:', leg.steps[currentStepIndex].instructions);
+    setInstruction(leg.steps[currentStepIndex].instructions);
   }
 
   // Shift to the next leg if the user has reached the end of the current leg
