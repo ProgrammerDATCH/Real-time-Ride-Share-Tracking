@@ -14,6 +14,22 @@ This project is a web application for tracking a driver's route in real-time, sp
 - Real-time tracking of the driver's current location.
 - Calculation and display of ETA for the next stop, assuming constant average speed.
 
+## Approach
+
+- **Map Integration**: Integrated the `@react-google-maps/api` library to render the map, display the route, and calculate ETAs for each stop. This library provides React components for seamless integration with Google Maps.
+
+- **ETA Calculation**: Calculated the ETA for each stop using the response provided by the DirectionsService from the Google Maps API. The DirectionsService calculates the optimal route based on the provided waypoints and returns the route data, including distance and duration information.
+
+- **Route Boundary Check**: Implemented a check to determine if the driver is within the route boundaries. This check is done by applying a bounding box to the route, with a buffer of 100 meters around the route. This ensures that the driver is considered "in route" when within this boundary.
+
+  - **Geolocation API**: Utilized the Geolocation API provided by JavaScript to continuously monitor the driver's location changes. By keeping a watch on the driver's location, the application can update the route information and ensure accurate tracking.
+
+- **Leg Update**: Updated the current leg of the route by calculating the distance between the driver's location and all legs of the route. The leg closest to the driver's location is considered the current leg. This allows for continuous updating of the current leg as the driver moves along the route.
+
+- **Adjustable Route Boundary**: The route boundary check allows for adjustment of the boundary size to accommodate different scenarios. The 100-meter buffer can be adjusted as needed to suit the specific requirements of the transportation agency and the route.
+
+
+
 ## Technologies Used
 
 - React.js for the front-end.
@@ -41,7 +57,7 @@ VITE_GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY';
 
 5. Start the development server:
 ```bash
-  npm start
+  npm run dev
 ```
 
 5. Open your browser and navigate to `http://localhost:5173/` to view the application.
@@ -50,11 +66,11 @@ VITE_GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY';
 
 - `src`:
   - `components`: Contains React components, including the map component.
-    - `assets`: Contains images to use as marker
-    - `MapComponent.tsx`: Main map component for showing Map.
+    - `assets`: Contains images to use as markers.
+    - `MapComponent.tsx`: Main map component for rendering Map.
     - `Moving.tsx`: Start page with icons and also render the map from MapComponent.tsx.
   - `constants`: Contains constants Data.
-    - `coordinates.ts`: Contains coordinates for entire route (Nyabugogo - Kimironko).
+    - `coordinates.ts`: Contains coordinates for entire route (Nyabugogo - Kimironko) + additional I added for testing.
   - `interfaces`: Contains interfaces & types
     - `index.ts`: Contains interfaces like Coordinate,...
   - `utils`: Contains utilities and helpful functions I used in entire App.

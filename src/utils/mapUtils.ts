@@ -27,7 +27,6 @@ const calculateETA = async (
 
 
 const isUserWithinRoute = (userLocation: Coordinate, route: any) => {
-
   const routeBounds = new google.maps.LatLngBounds();
   routeBounds.extend(new google.maps.LatLng(route.startingPoint.lat, route.startingPoint.lng));
   route.intermediateStops.forEach((stop: any) => {
@@ -39,68 +38,18 @@ const isUserWithinRoute = (userLocation: Coordinate, route: any) => {
   return routeBounds.contains(userLatLng);
 }
 
-
-const updateLeg1 = (
-  directionsResponse: google.maps.DirectionsResult | null,
-  currentLegIndex: number,
-  currentLocation: { lat: number; lng: number },
-  setCurrentLegIndex: (index: number) => void,
-  setInstruction: (instruction: string) => void
-) => {
-  if (!directionsResponse || !directionsResponse.routes || directionsResponse.routes.length === 0) {
-    return;
-  }
-
-  const route = directionsResponse.routes[0];
-  if (!route.legs || route.legs.length === 0) {
-    return;
-  }
-
-  const leg = route.legs[currentLegIndex];
-  if (!leg.steps || leg.steps.length === 0) {
-    return;
-  }
-
-  // Determine current step based on user's location
-  const currentStepIndex = leg.steps.findIndex(step => {
-    const stepStartLocation = step.start_location;
-    const stepEndLocation = step.end_location;
-    return (
-      currentLocation.lat >= stepStartLocation.lat() &&
-      currentLocation.lat <= stepEndLocation.lat() &&
-      currentLocation.lng >= stepStartLocation.lng() &&
-      currentLocation.lng <= stepEndLocation.lng()
-    );
-  });
-
-  if (currentStepIndex !== -1) {
-    // Display instruction from the current step
-    setInstruction(leg.steps[currentStepIndex].instructions);
-  }
-
-  // Shift to the next leg if the user has reached the end of the current leg
-  if (currentStepIndex === leg.steps.length - 1 && currentLegIndex < route.legs.length - 1) {
-    setCurrentLegIndex(currentLegIndex + 1);
-  }
-};
-
-
 const updateLeg = (
   directionsResponse: google.maps.DirectionsResult | null,
   currentLocation: { lat: number; lng: number },
-  setCurrentLegIndex: (index: number) => void,
-  setInstruction: (instruction: string) => void
+  setCurrentLegIndex: (index: number) => void
 ) => {
   if (!directionsResponse || !directionsResponse.routes || directionsResponse.routes.length === 0) {
     return;
   }
-
   const route = directionsResponse.routes[0];
   if (!route.legs || route.legs.length === 0) {
     return;
   }
-
-  // Calculate distance to each stop and find the closest one
   const distances = route.legs.map(leg => {
     const stopLocation = leg.end_location;
     return google.maps.geometry.spherical.computeDistanceBetween(
@@ -108,35 +57,12 @@ const updateLeg = (
       stopLocation
     );
   });
-
   const closestStopIndex = distances.indexOf(Math.min(...distances));
-
-  // Set the current leg index to the closest stop
   setCurrentLegIndex(closestStopIndex);
-
-  // Display instruction from the current leg
-  const closestLeg = route.legs[closestStopIndex];
-  const currentStepIndex = closestLeg.steps.findIndex(step => {
-    const stepStartLocation = step.start_location;
-    const stepEndLocation = step.end_location;
-    return (
-      currentLocation.lat >= stepStartLocation.lat() &&
-      currentLocation.lat <= stepEndLocation.lat() &&
-      currentLocation.lng >= stepStartLocation.lng() &&
-      currentLocation.lng <= stepEndLocation.lng()
-    );
-  });
-
-  if (currentStepIndex !== -1) {
-    setInstruction(closestLeg.steps[currentStepIndex].instructions);
-  }
 };
-
-
 
 export {
   calculateETA,
   isUserWithinRoute,
-  updateLeg,
-  updateLeg1
+  updateLeg
 };

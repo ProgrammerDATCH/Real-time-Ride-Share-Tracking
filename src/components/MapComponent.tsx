@@ -7,7 +7,7 @@ import { Coordinate } from '../interfaces';
 
 const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-const MapComponent = ({ setRouteInfo, setStatus, setInstruction }: { setRouteInfo: (routeInfo: google.maps.DirectionsLeg | null) => void, setStatus: any, setInstruction: any }) => {
+const MapComponent = ({ setRouteInfo }: { setRouteInfo: (routeInfo: google.maps.DirectionsLeg | null) => void }) => {
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number }>({
     lat: route.startingPoint.lat,
     lng: route.startingPoint.lng,
@@ -19,13 +19,7 @@ const MapComponent = ({ setRouteInfo, setStatus, setInstruction }: { setRouteInf
 
   const updateRouteIfWithinBoundaries = (userLocation: Coordinate) => {
     setCurrentLocation({ lat: userLocation.lat, lng: userLocation.lng })
-    if (!isUserWithinRoute(userLocation, route)) {
-      setStatus("Out of Route")
-    }
-    else {
-      setStatus("Moving ->")
-      updateLeg(directionsResponse, currentLocation, setCurrentLegIndex, setInstruction)
-    }
+    if (isUserWithinRoute(userLocation, route)) updateLeg(directionsResponse, currentLocation, setCurrentLegIndex)
   }
 
 
