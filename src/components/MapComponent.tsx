@@ -23,8 +23,8 @@ const MapComponent = ({ setRouteInfo, setStatus, setInstruction }: { setRouteInf
       setStatus("Out of Route")
     }
     else {
-      setStatus("Moving...")
-      updateLeg(directionsResponse, currentLegIndex, currentLocation, setCurrentLegIndex, setInstruction)
+      setStatus("Moving ->")
+      updateLeg(directionsResponse, currentLocation, setCurrentLegIndex, setInstruction)
     }
   }
 
